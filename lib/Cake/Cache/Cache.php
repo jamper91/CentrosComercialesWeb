@@ -277,7 +277,9 @@ class Cache {
 	}
 
 /**
- * Write data for key into a cache engine.
+ * Write data for key into cache. Will automatically use the currently
+ * active cache configuration. To set the currently active configuration use
+ * Cache::config()
  *
  * ### Usage:
  *
@@ -326,7 +328,9 @@ class Cache {
 	}
 
 /**
- * Read a key from a cache config.
+ * Read a key from the cache. Will automatically use the currently
+ * active cache configuration. To set the currently active configuration use
+ * Cache::config()
  *
  * ### Usage:
  *

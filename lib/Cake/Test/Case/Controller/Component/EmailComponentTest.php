@@ -863,8 +863,6 @@ HTMLBLOC;
 
 /**
  * Make sure from/to are not double encoded when UTF-8 is present
- *
- * @return void
  */
 	public function testEncodingFrom() {
 		$this->Controller->EmailTest->to = 'Teßt <test@example.com>';

@@ -453,8 +453,6 @@ class FileEngineTest extends CakeTestCase {
 
 /**
  * Test that clearing with repeat writes works properly
- *
- * @return void
  */
 	public function testClearingWithRepeatWrites() {
 		Cache::config('repeat', array(

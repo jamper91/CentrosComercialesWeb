@@ -246,8 +246,6 @@ class CacheTest extends CakeTestCase {
 
 /**
  * testGroupConfigs method
- *
- * @return void
  */
 	public function testGroupConfigs() {
 		Cache::config('latest', array(
@@ -301,9 +299,7 @@ class CacheTest extends CakeTestCase {
 
 /**
  * testGroupConfigsThrowsException method
- *
  * @expectedException CacheException
- * @return void
  */
 	public function testGroupConfigsThrowsException() {
 		Cache::groupConfigs('bogus');

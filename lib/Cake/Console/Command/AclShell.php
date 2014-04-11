@@ -143,8 +143,7 @@ class AclShell extends AppShell {
 	}
 
 /**
- * Delete an ARO/ACO node. Note there may be (as a result of poor configuration)
- * multiple records with the same logical identifier. All are deleted.
+ * Delete an ARO/ACO node.
  *
  * @return void
  */
@@ -152,18 +151,12 @@ class AclShell extends AppShell {
 		extract($this->_dataVars());
 
 		$identifier = $this->parseIdentifier($this->args[1]);
-		if (is_string($identifier)) {
-			$identifier = array('alias' => $identifier);
-		}
+		$nodeId = $this->_getNodeId($class, $identifier);
 
-		if ($this->Acl->{$class}->find('all', array('conditions' => $identifier))) {
-			if (!$this->Acl->{$class}->deleteAll($identifier)) {
-				$this->error(__d('cake_console', 'Node Not Deleted. ') . __d('cake_console', 'There was an error deleting the %s.', $class) . "\n");
-			}
-			$this->out(__d('cake_console', '<success>%s deleted.</success>', $class), 2);
-		} else {
-			$this->error(__d('cake_console', 'Node Not Deleted. ') . __d('cake_console', 'There was an error deleting the %s. Node does not exist.', $class) . "\n");
+		if (!$this->Acl->{$class}->delete($nodeId)) {
+			$this->error(__d('cake_console', 'Node Not Deleted') . __d('cake_console', 'There was an error deleting the %s. Check that the node exists.', $class) . "\n");
 		}
+		$this->out(__d('cake_console', '<success>%s deleted.</success>', $class), 2);
 	}
 
 /**

@@ -840,8 +840,6 @@ TEXT;
 
 /**
  * Test file and console and logging
- *
- * @return void
  */
 	public function testFileAndConsoleLogging() {
 		// file logging
@@ -888,8 +886,6 @@ TEXT;
 
 /**
  * Test file and console and logging quiet output
- *
- * @return void
  */
 	public function testQuietLog() {
 		$output = $this->getMock('ConsoleOutput', array(), array(), '', false);

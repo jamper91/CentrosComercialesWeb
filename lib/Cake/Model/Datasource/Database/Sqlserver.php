@@ -201,8 +201,7 @@ class Sqlserver extends DboSource {
 			return $cache;
 		}
 		$fields = array();
-		$table = $this->fullTableName($model, false, false);
-		$schema = $model->schemaName;
+		$table = $this->fullTableName($model, false);
 		$cols = $this->_execute(
 			"SELECT
 				COLUMN_NAME as Field,
@@ -213,7 +212,7 @@ class Sqlserver extends DboSource {
 				COLUMNPROPERTY(OBJECT_ID('" . $table . "'), COLUMN_NAME, 'IsIdentity') as [Key],
 				NUMERIC_SCALE as Size
 			FROM INFORMATION_SCHEMA.COLUMNS
-			WHERE TABLE_NAME = '" . $table . "'" . ($schema ? " AND TABLE_SCHEMA = '" . $schema . "'" : '')
+			WHERE TABLE_NAME = '" . $table . "'"
 		);
 		if (!$cols) {
 			throw new CakeException(__d('cake_dev', 'Could not describe table for %s', $table));
