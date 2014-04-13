@@ -20,6 +20,9 @@ class AlmacenesController extends AppController {
     
     public function getLocales()
     {
+        $parametros=array(
+            "conditions"=>array("Almacen.escalera"=>0)
+        );
         $datos=  $this->Almacene->find('all');
             $this->set(array(
                 'datos' => $datos,
@@ -65,11 +68,11 @@ class AlmacenesController extends AppController {
                 '_serialize' => array('datos')
             ));
     }
-    public function getLocalesByCentroComercial($idCentroComercial) 
+    public function getLocalesByCentroComercial() 
     {
         $idCentroComercial=$this->request->data['idCentroComercial'];
         $sql="select a.nombre, a.id from almacenes a, centroscomerciales cc "
-                . "where a.centroscomerciale_id=$idCentroComercial";
+                . "where a.centroscomerciale_id=$idCentroComercial and escalera=0";
         $datos=$this->Almacene->query($sql);
         $this->set(array(
                 'datos' => $datos,

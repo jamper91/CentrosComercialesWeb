@@ -29,7 +29,7 @@ class PisosController extends AppController {
             '_serialize' => array('datos')
         ));
     }
-    public function getMapaByPiso($idPiso) 
+    public function getMapaByPiso() 
     {
         $idPiso=$this->request->data['idPiso'];
         $parametros=Array(

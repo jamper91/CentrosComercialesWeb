@@ -41,6 +41,7 @@
         Router::mapResources('centroscomerciales');
         Router::mapResources('locales');
         Router::mapResources('pisos');
+        Router::mapResources('centroscomercialesmediostransportes');
 
         Router::parseExtensions();
         
