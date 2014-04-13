@@ -38,6 +38,10 @@
 
 	Router::mapResources('categorias');
         Router::mapResources('ciudades');
+        Router::mapResources('centroscomerciales');
+        Router::mapResources('locales');
+        Router::mapResources('pisos');
+
         Router::parseExtensions();
         
         //Router::parseExtensions();

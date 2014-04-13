@@ -6,15 +6,17 @@
  * and open the template in the editor.
  */
 
-//App::uses('AppModel', 'Model');
+//App::uses('AppController', 'Controller');
 
 /**
- * CakePHP Categoria
+ * CakePHP CentroscomercialesServiciosController
  * @author jamper91
  */
-class Categoria extends AppModel {
-        public $hasMany = array(
-        'CategoriasCentroscomerciale', 'AlmacenesCategoria'
-    );
+class CentroscomercialesServiciosController extends AppController {
+
+    public function index($id) {
+        
+    }
+
 }
 ?>

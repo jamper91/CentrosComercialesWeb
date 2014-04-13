@@ -5,5 +5,5 @@ $this->response->header('Access-Control-Allow-Methods','GET');
 $this->response->header('Access-Control-Allow-Headers','X-Requested-With');
 $this->response->header('Access-Control-Max-Age','172800');
 $this->response->type('xml');
-$xml = Xml::fromArray(array('response' => $ciudades));
+$xml = Xml::fromArray(array('response' => $datos));
 echo $xml->asXML();

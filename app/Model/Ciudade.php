@@ -6,12 +6,13 @@
  * and open the template in the editor.
  */
 
-App::uses('AppModel', 'Model');
+//App::uses('AppModel', 'Model');
 
 /**
  * CakePHP Ciudad
  * @author jamper91
  */
 class Ciudade extends AppModel {
-    
+    public $hasMany=array('Centroscomerciale');
 }
+?>

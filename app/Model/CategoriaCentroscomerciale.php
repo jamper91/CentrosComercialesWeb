@@ -9,12 +9,12 @@
 //App::uses('AppModel', 'Model');
 
 /**
- * CakePHP Categoria
+ * CakePHP CategoriasCentroscomerciales
  * @author jamper91
  */
-class Categoria extends AppModel {
-        public $hasMany = array(
-        'CategoriasCentroscomerciale', 'AlmacenesCategoria'
+class CategoriaCentroscomerciales extends AppModel {
+    public $belongsTo = array(
+        'Categoria', 'Centroscomerciale'
     );
 }
 ?>
