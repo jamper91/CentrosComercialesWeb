@@ -25,7 +25,8 @@ class CategoriasController extends AppController {
             '_serialize' => array('categorias')
         ));
     }
-    public function getCategoriasByCentroComercial($idCentroComercial) {
+    public function getCategoriasByCentroComercial() {
+        $idCentroComercial=$this->request->data['idCentroComercial'];
         $datos = $this->Categoria->find('all');
         $this->set(array(
             'datos' => $datos,

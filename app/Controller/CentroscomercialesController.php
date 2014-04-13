@@ -23,7 +23,8 @@ class  CentroscomercialesController extends AppController {
         ));
     }
     
-    public function getCentrosComercialesByCiudad($idCiudad) {
+    public function getCentrosComercialesByCiudad() {
+        $idCiudad=$this->request->data['idCiudad'];
         $datos = $this->Centroscomerciale->findByciudade_id($idCiudad);
         $this->set(array(
             'datos' => $datos,
@@ -31,18 +32,19 @@ class  CentroscomercialesController extends AppController {
         ));
     }
     
-    public function getCetegoriasByCentroComercial($idCentroComercial) 
+    public function getCetegoriasByCentroComercial() 
     {
+        $idCentroComercial=$this->request->data['idCentroComercial'];
         $sql="select c.nombre, c.id from categorias c, categorias_centroscomerciales c_c, centroscomerciales cc where cc.id=$idCentroComercial and c_c.centroscomerciale_id=cc.id and c_c.categoria_id=c.id";
         $datos=  $this->Centroscomerciale->query($sql);
-//        $datos= $this->Centroscomerciale->findById($idCentroComercial);
         $this->set(array(
             'datos' => $datos,
             '_serialize' => array('datos')
         ));
     }
-    public function getInformacionCentroComercial($idCentroComercial) 
+    public function getInformacionCentroComercial() 
     {
+        $idCentroComercial=$this->request->data['idCentroComercial'];
         $datos = $this->Centroscomerciale->findById($idCentroComercial);
         $this->set(array(
             'datos' => $datos,
@@ -50,8 +52,9 @@ class  CentroscomercialesController extends AppController {
         ));
         
     }
-    public function getMediosTransporteByCentroComercial($idCentroComercial)
+    public function getMediosTransporteByCentroComercial()
     {
+        $idCentroComercial=$this->request->data['idCentroComercial'];
         $sql="select m.nombre, m.id from mediostransportes m, centroscomerciales cc, "
                 . "centroscomerciales_mediostransportes c_m where cc.id=$idCentroComercial "
                 . "and c_m.centroscomerciale_id=cc.id and c_m.mediostransporte_id = m.id";

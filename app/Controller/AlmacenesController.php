@@ -56,8 +56,9 @@ class AlmacenesController extends AppController {
             ));
         
     }
-    public function getInformacionLocal($idLocal) 
+    public function getInformacionLocal() 
     {
+        $idLocal=$this->request->data['idLocal'];
         $datos=$this->Almacene->findById($idLocal);
         $this->set(array(
                 'datos' => $datos,
@@ -66,6 +67,7 @@ class AlmacenesController extends AppController {
     }
     public function getLocalesByCentroComercial($idCentroComercial) 
     {
+        $idCentroComercial=$this->request->data['idCentroComercial'];
         $sql="select a.nombre, a.id from almacenes a, centroscomerciales cc "
                 . "where a.centroscomerciale_id=$idCentroComercial";
         $datos=$this->Almacene->query($sql);
@@ -75,9 +77,12 @@ class AlmacenesController extends AppController {
             ));
     }
     
-    public function getEscaleraByPisoBloque($piso,$bloque)
+    public function getEscaleraByPisoBloque()
     {
+        $piso=$this->request->data['piso'];
+        $bloque=$this->request->data['bloque'];
         $opciones=array(
+            'fields'=>array('Almacene.id'),
             'conditions' => array('Almacene.piso_id' => $piso, "Almacene.bloque"=> $bloque, "Almacene.escalera"=> 1)
         );
         $datos=$this->Almacene->find("all",$opciones);
@@ -86,6 +91,20 @@ class AlmacenesController extends AppController {
                 '_serialize' => array('datos')
             ));
                 
+    }
+    public function getCoordenadasEscalera() 
+    {
+        $idEscalera=$this->request->data['idEscalera'];
+        $opciones=array(
+            'conditions'=> array('Almacene.id'=>$idEscalera, "Almacene.escalera"=>1),
+            'fields' => array('Almacene.x', "Almacene.y")
+        );
+        $datos=$this->Almacene->find("all",$opciones);
+        $this->set(array(
+                'datos' => $datos,
+                '_serialize' => array('datos')
+            ));
+        
     }
 
 }

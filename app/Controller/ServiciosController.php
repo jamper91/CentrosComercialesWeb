@@ -18,8 +18,9 @@ class ServiciosController extends AppController {
         
     }
     
-    public function getServiciosByCentroComercial($idCentroComercial) 
+    public function getServiciosByCentroComercial() 
     {
+        $idCentroComercial=$this->request->data['idCentroComercial'];
         $sql="select s.nombre, s.id from servicios s, centroscomerciales cc, "
                 . " centroscomerciales_servicios c_s where cc.id=$idCentroComercial and "
                 . "c_s.centroscomerciale_id=cc.id and c_s.servicio_id=s.id";
