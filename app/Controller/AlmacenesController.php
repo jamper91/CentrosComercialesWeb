@@ -81,11 +81,14 @@ class AlmacenesController extends AppController {
     {
         $piso=$this->request->data['piso'];
         $bloque=$this->request->data['bloque'];
-        $opciones=array(
-            'fields'=>array('Almacene.id'),
-            'conditions' => array('Almacene.piso_id' => $piso, "Almacene.bloque"=> $bloque, "Almacene.escalera"=> 1)
-        );
-        $datos=$this->Almacene->find("all",$opciones);
+        $sql="select a.id from almacenes a, pisos p where p.numero=$piso and "
+                . " a.bloque=$bloque and a.piso_id=p.id and a.escalera=1";
+//        $opciones=array(
+//            'fields'=>array('Almacene.id'),
+//            'conditions' => array('Almacene.piso_id' => $piso, "Almacene.bloque"=> $bloque, "Almacene.escalera"=> 1)
+//        );
+//        $datos=$this->Almacene->find("all",$opciones);
+        $datos=  $this->Almacene->query($sql);
         $this->set(array(
                 'datos' => $datos,
                 '_serialize' => array('datos')
