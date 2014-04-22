@@ -20,6 +20,7 @@ class AlmacenesController extends AppController {
     
     public function getLocales()
     {
+        $this->layout="webservice";
         $parametros=array(
             "conditions"=>array("Almacen.escalera"=>0)
         );
@@ -34,6 +35,7 @@ class AlmacenesController extends AppController {
 
     public function getLocalesByBusqueda()
     {
+        $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
         $idCategoria=$this->request->data['idCategoria'];
         $sql="select l.nombre, l.id from almacenes l, centroscomerciales cc, "
@@ -48,6 +50,7 @@ class AlmacenesController extends AppController {
     }
     public function getCentrosComercialesByLocal() 
     {
+        $this->layout="webservice";
         $idLocal=$this->request->data['idLocal'];
         $sql="select  cc.nombre, cc.id from centroscomerciales cc, almacenes a, "
                 . " (select nombre from almacenes where id=$idLocal) as b where "
@@ -61,6 +64,7 @@ class AlmacenesController extends AppController {
     }
     public function getInformacionLocal() 
     {
+        $this->layout="webservice";
         $idLocal=$this->request->data['idLocal'];
         $datos=$this->Almacene->findById($idLocal);
         $this->set(array(
@@ -70,6 +74,7 @@ class AlmacenesController extends AppController {
     }
     public function getLocalesByCentroComercial() 
     {
+        $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
         $sql="select a.nombre, a.id from almacenes a, centroscomerciales cc "
                 . "where a.centroscomerciale_id=$idCentroComercial and escalera=0";
@@ -82,6 +87,7 @@ class AlmacenesController extends AppController {
     
     public function getEscaleraByPisoBloque()
     {
+        $this->layout="webservice";
         $piso=$this->request->data['piso'];
         $bloque=$this->request->data['bloque'];
         $sql="select a.id from almacenes a, pisos p where p.numero=$piso and "
@@ -100,6 +106,7 @@ class AlmacenesController extends AppController {
     }
     public function getCoordenadasEscalera() 
     {
+        $this->layout="webservice";
         $idEscalera=$this->request->data['idEscalera'];
         $opciones=array(
             'conditions'=> array('Almacene.id'=>$idEscalera, "Almacene.escalera"=>1),

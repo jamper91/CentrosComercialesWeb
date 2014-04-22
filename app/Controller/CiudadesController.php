@@ -16,10 +16,11 @@ class CiudadesController extends AppController {
     public $components = array('RequestHandler');
     public function index() 
     {
-        $ciudades = $this->Ciudade->find('all');
+        $this->layout="webservice";
+        $datos = $this->Ciudade->find('all');
         $this->set(array(
-            'ciudades' => $ciudades,
-            '_serialize' => array('ciudades')
+            'datos' => $datos,
+            '_serialize' => array('datos')
         ));
     }
 

@@ -19,6 +19,7 @@ class PisosController extends AppController {
     }
     public function getPisosByCentroComercial() 
     {
+        $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
         $parametros=array(
             "conditions"=>array("Piso.centroscomerciale_id"=>$idCentroComercial)
@@ -31,6 +32,7 @@ class PisosController extends AppController {
     }
     public function getMapaByPiso() 
     {
+        $this->layout="webservice";
         $idPiso=$this->request->data['idPiso'];
         $parametros=Array(
             "fields"=>array("Piso.mapa"),

@@ -20,6 +20,7 @@ class PromocionesController extends AppController {
     
     public function getPromocion() 
     {
+        $this->layout="webservice";
         $idPromocion=$this->request->data['idPromocion'];
         $parametros=array(
             "conditions"=>array("Promocione.id"=>$idPromocion)
@@ -33,7 +34,7 @@ class PromocionesController extends AppController {
     }
     public function getPromociones() 
     {
-
+        $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
         $parametros=array(
             "conditions"=>array("Almacene.centroscomerciale_id"=>$idCentroComercial)

@@ -19,6 +19,7 @@ class CategoriasController extends AppController {
     public $components = array('RequestHandler');
     public function index() 
     {
+        $this->layout="webservice";
         $categorias = $this->Categoria->find('all');
         $this->set(array(
             'categorias' => $categorias,
@@ -26,6 +27,7 @@ class CategoriasController extends AppController {
         ));
     }
     public function getCategoriasByCentroComercial() {
+        $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
         $datos = $this->Categoria->find('all');
         $this->set(array(

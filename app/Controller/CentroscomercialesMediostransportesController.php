@@ -20,7 +20,7 @@ class CentroscomercialesMediostransportesController extends AppController {
     
     public function getInformacionMedioTransporte() 
     {
-
+        $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
         $idMedioTransporte=$this->request->data['idMedioTransporte'];
         
