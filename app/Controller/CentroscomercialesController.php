@@ -17,7 +17,10 @@ class  CentroscomercialesController extends AppController {
 
     public function index() {
         $this->layout="webservice";
-        $datos = $this->Centroscomerciale->find("all");
+        $options=array(
+        );
+        
+        $datos = $this->Centroscomerciale->find("all",$options);
         //debug($datos);
         $this->set(array(
             'datos' => $datos,
@@ -28,7 +31,13 @@ class  CentroscomercialesController extends AppController {
     public function getcentroscomercialesbyciudad() {
         $this->layout="webservice";
         $idCiudad=$this->request->data['idCiudad'];
-        $datos = $this->Centroscomerciale->findByciudade_id($idCiudad);
+        $options=array(
+          'recursive'=>-1 ,
+            'conditions'=>array(
+                'Centroscomerciale.ciudade_id'=>$idCiudad
+            )
+        );
+        $datos = $this->Centroscomerciale->find("all",$options);
         $this->set(array(
             'datos' => $datos,
             '_serialize' => array('datos')
@@ -39,7 +48,10 @@ class  CentroscomercialesController extends AppController {
     {
         $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
-        $sql="select c.nombre, c.id from categorias c, categorias_centroscomerciales c_c, centroscomerciales cc where cc.id=$idCentroComercial and c_c.centroscomerciale_id=cc.id and c_c.categoria_id=c.id";
+        if($idCentroComercial>0)
+            $sql="select c.nombre, c.id from categorias c, categorias_centroscomerciales c_c, centroscomerciales cc where cc.id=$idCentroComercial and c_c.centroscomerciale_id=cc.id and c_c.categoria_id=c.id";
+        else
+            $sql="select c.nombre, c.id from categorias c";
         $datos=  $this->Centroscomerciale->query($sql);
         $this->set(array(
             'datos' => $datos,

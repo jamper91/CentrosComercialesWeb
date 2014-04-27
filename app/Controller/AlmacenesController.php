@@ -22,9 +22,10 @@ class AlmacenesController extends AppController {
     {
         $this->layout="webservice";
         $parametros=array(
-            "conditions"=>array("Almacen.escalera"=>0)
+            "conditions"=>array("Almacene.escalera"=>0),
+            "recursive"=>-1
         );
-        $datos=  $this->Almacene->find('all');
+        $datos=  $this->Almacene->find('all',$parametros);
             $this->set(array(
                 'datos' => $datos,
                 '_serialize' => array('datos')
@@ -38,10 +39,29 @@ class AlmacenesController extends AppController {
         $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
         $idCategoria=$this->request->data['idCategoria'];
-        $sql="select l.nombre, l.id from almacenes l, centroscomerciales cc, "
-                . "almacenes_categorias c_l, categorias c where cc.id=$idCentroComercial "
-                . " and c.id=$idCategoria and l.centroscomerciale_id=$idCentroComercial and"
+        $conCC="";
+        $conCA="";
+        
+        
+        if($idCentroComercial==0 && $idCategoria==0)
+            $sql="select l.nombre, l.id from almacenes l";
+        else if($idCentroComercial==0 && $idCategoria>0)
+        {
+            $sql="select l.nombre, l.id from almacenes l, centroscomerciales cc, "
+                . "almacenes_categorias c_l, categorias c where "
+                . " c.id=$idCategoria and"
                 . " c_l.almacene_id=l.id and c_l.categoria_id=$idCategoria";
+        }else if($idCentroComercial>0 && $idCategoria==0)
+        {
+            $sql="select l.nombre, l.id from almacenes l, centroscomerciales cc, "
+                . "almacenes_categorias c_l, categorias c where cc.id=$idCentroComercial "
+                . " and l.centroscomerciale_id=$idCentroComercial";
+        }
+        
+//        $sql="select l.nombre, l.id from almacenes l, centroscomerciales cc, "
+//                . "almacenes_categorias c_l, categorias c where cc.id=$idCentroComercial "
+//                . " and c.id=$idCategoria and l.centroscomerciale_id=$idCentroComercial and"
+//                . " c_l.almacene_id=l.id and c_l.categoria_id=$idCategoria";
             $datos=  $this->Almacene->query($sql);
             $this->set(array(
                 'datos' => $datos,
@@ -76,9 +96,22 @@ class AlmacenesController extends AppController {
     {
         $this->layout="webservice";
         $idCentroComercial=$this->request->data['idCentroComercial'];
-        $sql="select a.nombre, a.id from almacenes a, centroscomerciales cc "
-                . "where a.centroscomerciale_id=$idCentroComercial and escalera=0";
-        $datos=$this->Almacene->query($sql);
+        $parametros=array(
+            "fields"=>array(
+              "Almacene.nombre",
+              "Almacene.id"
+            ),
+            "conditions"=>array(
+                "Almacene.escalera"=>0,
+                "Almacene.centroscomerciale_id"=>$idCentroComercial
+            ),
+            "recursive"=>-1
+        );
+        $datos=  $this->Almacene->find('all',$parametros);
+            $this->set(array(
+                'datos' => $datos,
+                '_serialize' => array('datos')
+            ));
         $this->set(array(
                 'datos' => $datos,
                 '_serialize' => array('datos')

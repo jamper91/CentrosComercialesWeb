@@ -17,7 +17,10 @@ class CiudadesController extends AppController {
     public function index() 
     {
         $this->layout="webservice";
-        $datos = $this->Ciudade->find('all');
+        $options=array(
+          'recursive'=>-1  
+        );
+        $datos = $this->Ciudade->find('all',$options);
         $this->set(array(
             'datos' => $datos,
             '_serialize' => array('datos')
