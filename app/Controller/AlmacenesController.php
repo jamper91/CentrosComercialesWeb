@@ -47,15 +47,14 @@ class AlmacenesController extends AppController {
             $sql="select l.nombre, l.id from almacenes l";
         else if($idCentroComercial==0 && $idCategoria>0)
         {
-            $sql="select l.nombre, l.id from almacenes l, centroscomerciales cc, "
-                . "almacenes_categorias c_l, categorias c where "
-                . " c.id=$idCategoria and"
+            $sql="select l.nombre, l.id from almacenes l "
+                . "almacenes_categorias c_l where "
                 . " c_l.almacene_id=l.id and c_l.categoria_id=$idCategoria";
         }else if($idCentroComercial>0 && $idCategoria==0)
         {
-            $sql="select l.nombre, l.id from almacenes l, centroscomerciales cc, "
-                . "almacenes_categorias c_l, categorias c where cc.id=$idCentroComercial "
-                . " and l.centroscomerciale_id=$idCentroComercial";
+            $sql="select l.nombre, l.id from almacenes l "
+                . " where "
+                . " l.centroscomerciale_id=$idCentroComercial";
         }
         
 //        $sql="select l.nombre, l.id from almacenes l, centroscomerciales cc, "
@@ -68,11 +67,11 @@ class AlmacenesController extends AppController {
                 '_serialize' => array('datos')
             ));
     }
-    public function getCentrosComercialesByLocal() 
+    public function getcentroscomercialesbyLocal() 
     {
         $this->layout="webservice";
         $idLocal=$this->request->data['idLocal'];
-        $sql="select  cc.nombre, cc.id from centroscomerciales cc, almacenes a, "
+        $sql="select  cc.nombre, a.id from centroscomerciales cc, almacenes a, "
                 . " (select nombre from almacenes where id=$idLocal) as b where "
                 . "a.nombre=b.nombre and a.centroscomerciale_id=cc.id";
         $datos=  $this->Almacene->query($sql);
