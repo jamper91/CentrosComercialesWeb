@@ -13,14 +13,20 @@
  * @author jamper91
  */
 class CiudadesController extends AppController {
+
     public $components = array('RequestHandler');
-    public function index() 
-    {
-        $this->layout="webservice";
-        $options=array(
-          'recursive'=>-1  
+
+    public function index() {
+        $this->layout = "webservice";
+        $idPais = $this->request->data["idPais"];
+        $options = array(
+            'recursive' => -1,
+            'order' => 'Ciudade.nombre',
+            'conditions'=>array(
+                'Ciudade.paise_id'=>$idPais
+            )
         );
-        $datos = $this->Ciudade->find('all',$options);
+        $datos = $this->Ciudade->find('all', $options);
         $this->set(array(
             'datos' => $datos,
             '_serialize' => array('datos')

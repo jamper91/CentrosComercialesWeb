@@ -35,7 +35,11 @@ class PisosController extends AppController {
         $this->layout="webservice";
         $idPiso=$this->request->data['idPiso'];
         $parametros=Array(
-            "fields"=>array("Piso.mapa"),
+            "fields"=>array(
+                "Piso.mapa",
+                "Piso.numero",
+                "Centroscomerciale.id"
+                ),
             "conditions"=>array("Piso.id"=>$idPiso)
         );
         $datos=  $this->Piso->find("all",$parametros);

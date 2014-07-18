@@ -61,15 +61,25 @@
  */
 class DATABASE_CONFIG {
 
-	public $default = array(
+//	public $default = array(
+//		'datasource' => 'Database/Mysql',
+//		'persistent' => false,
+//		'host' => 'localhost',
+//		'login' => 'root',
+//		'password' => '',
+//		'database' => 'CentrosComercialesWeb',
+//		'prefix' => '',
+//		//'encoding' => 'utf8',
+//	);
+        public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'root',
-		'password' => '',
-		'database' => 'CentrosComercialesWeb',
+		'host' => '208.52.189.193',
+		'login' => 'aplikocc',
+		'password' => 'aplikocc2014',
+		'database' => 'centroscomercialesweb',
 		'prefix' => '',
-		//'encoding' => 'utf8',
+		'encoding' => 'utf8',
 	);
 
 	public $test = array(

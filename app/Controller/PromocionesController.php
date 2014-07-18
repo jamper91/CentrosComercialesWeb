@@ -13,33 +13,38 @@
  * @author jamper91
  */
 class PromocionesController extends AppController {
+
     public $components = array('RequestHandler');
+
     public function index($id) {
         
     }
-    
-    public function getPromocion() 
-    {
-        $this->layout="webservice";
-        $idPromocion=$this->request->data['idPromocion'];
-        $parametros=array(
-            "conditions"=>array("Promocione.id"=>$idPromocion)
+
+    public function getPromocion() {
+        $this->layout = "webservice";
+        $idPromocion = $this->request->data['idPromocion'];
+        $parametros = array(
+            "conditions" => array("Promocione.id" => $idPromocion)
         );
-        $datos=  $this->Promocione->find("all",$parametros);
+        $datos = $this->Promocione->find("all", $parametros);
         $this->set(array(
             'datos' => $datos,
             '_serialize' => array('datos')
         ));
-        
     }
-    public function getPromociones() 
-    {
-        $this->layout="webservice";
-        $idCentroComercial=$this->request->data['idCentroComercial'];
-        $parametros=array(
-            "conditions"=>array("Almacene.centroscomerciale_id"=>$idCentroComercial)
-        );
-        $datos=  $this->Promocione->find("all",$parametros);
+
+    public function getPromociones() {
+        $this->layout = "webservice";
+        $idCentroComercial = $this->request->data['idCentroComercial'];
+        //debug("idCentroComercial: ".$idCentroComercial);
+        if ($idCentroComercial && $idCentroComercial>0) {
+            $parametros = array(
+                "conditions" => array("Almacene.centroscomerciale_id" => $idCentroComercial)
+            );
+        }else
+            $parametros=null;
+
+        $datos = $this->Promocione->find("all", $parametros);
         $this->set(array(
             'datos' => $datos,
             '_serialize' => array('datos')
@@ -47,4 +52,5 @@ class PromocionesController extends AppController {
     }
 
 }
+
 ?>

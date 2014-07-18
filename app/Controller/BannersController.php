@@ -13,25 +13,63 @@ App::uses('AppController', 'Controller');
  * @author Jorge Moreno
  */
 class BannersController extends AppController {
-
+    public $components = array('RequestHandler');
     public function index($id) {
         
     }
     
-    public function getBanners() 
+    public function getbannerbyid()
     {
         $this->layout="webservice";
-        $vista=$this->request->data["vista"];
-        $idCentroComercial=$this->request->data["idCentroComercial"];
-        $idCategoria=$this->request->data["idCategoria"];
-        $idAlmacen=$this->request->data["idAlmacen"];
+        $id=$this->request->data["idPromocion"];
+        $options=Array(
+            "fields"=>array(
+                "Banner.id",
+                "Banner.imagen",
+                "Banner.informacion",
+                "Banner.link"
+                ),
+            "conditions"=>array(
+                "Banner.id"=>$id
+            ),
+        );
+        $datos=  $this->Banner->find('all', $options);
+        $this->set(array(
+            'datos' => $datos,
+            '_serialize' => array('datos')
+        ));
+    }
+    public function getbanners() 
+    {
+        $this->layout="webservice";
+        if(!isset($this->request->data["vista"]) || $this->request->data["vista"]=="null")
+            $vista=null;
+        else
+            $vista=$this->request->data["vista"];
+        
+        if(!isset($this->request->data["idCentroComercial"]) || $this->request->data["idCentroComercial"]=="null")
+            $idCentroComercial=null;
+        else
+            $idCentroComercial=$this->request->data["idCentroComercial"];
+        
+        if(!isset($this->request->data["idCategoria"]) || $this->request->data["idCategoria"]=="null")
+            $idCategoria=null;
+        else
+            $idCategoria=$this->request->data["idCategoria"];
+        
+        if(!isset($this->request->data["idAlmacen"]) || $this->request->data["idAlmacen"]=="null")
+            $idAlmacen=null;
+        else
+            $idAlmacen=$this->request->data["idAlmacen"];
+        
+//        debug($idAlmacen);
         $conditions;
         if($vista!=null && $idCentroComercial!=null && $idCategoria!=null)
         {
             $conditions=array(
                 "Banner.vista"=>$vista,
-                "Banner.centroscomerciale"=>$idCentroComercial,
-                "Banner.idCategoria"=>$idCategoria
+                "Banner.centroscomerciale_id"=>$idCentroComercial,
+                "Banner.categoria_id"=>$idCategoria
             );
         }else if($vista!=null && $idAlmacen!=null)
         {
@@ -50,10 +88,17 @@ class BannersController extends AppController {
             $conditions=array(
                 "Banner.vista"=>$vista
             );
+        }else if($idAlmacen!=null)
+        {
+            $conditions=array(
+                "Banner.almacene_id"=>$idAlmacen
+            );
+        }else{
+            $conditions=null;
         }
         $options=Array(
-            "fields"=>array("Bet.id","Bet.nombre"),
-            "conditions"=>$conditions
+            "fields"=>array("Banner.id","Banner.imagen"),
+            "conditions"=>$conditions,
         );
         $datos=  $this->Banner->find('all', $options);
         $this->set(array(
